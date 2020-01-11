@@ -1,6 +1,5 @@
 import requests
 import json
-from StringIO import StringIO
 
 class AuthError(Exception):
 	pass
@@ -192,7 +191,7 @@ class FrappeClient(object):
 
 	def preprocess(self, params):
 		"""convert dicts, lists to json"""
-		for key, value in params.iteritems():
+		for key, value in params.items():
 			if isinstance(value, (dict, list)):
 				params[key] = json.dumps(value)
 
@@ -202,7 +201,7 @@ class FrappeClient(object):
 		try:
 			rjson = response.json()
 		except ValueError:
-			print response.text
+			print(response.text)
 			raise
 
 		if rjson and ("exc" in rjson) and rjson["exc"]:
@@ -216,16 +215,16 @@ class FrappeClient(object):
 
 	def post_process_file_stream(self, response):
 		if response.ok:
-			output = StringIO()
-			for block in response.iter_content(1024):
-				output.write(block)
-			return output
-
+			#output = StringIO()
+			#for block in response.iter_content(1024):
+				#output.write(block)
+			#return output
+			pass
 		else:
 			try:
 				rjson = response.json()
 			except ValueError:
-				print response.text
+				print(response.text)
 				raise
 
 			if rjson and ("exc" in rjson) and rjson["exc"]:

@@ -145,6 +145,13 @@ class FrappeClient(object):
 		)
 		return self.post_process_file_stream(response)
 
+	def sendmail(self, params):
+		response = self.session.get(
+			self.url + "/api/method/frappe.core.doctype.communication.email.make",
+			params=params, stream=True)
+
+		return self.post_process(response)
+
 	def __load_downloadable_templates(self):
 		global CAN_DOWNLOAD
 		CAN_DOWNLOAD = self.get_api('frappe.core.page.data_import_tool.data_import_tool.get_doctypes')

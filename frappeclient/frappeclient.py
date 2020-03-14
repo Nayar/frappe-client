@@ -222,11 +222,9 @@ class FrappeClient(object):
 
 	def post_process_file_stream(self, response):
 		if response.ok:
-			#output = StringIO()
-			#for block in response.iter_content(1024):
-				#output.write(block)
-			#return output
-			pass
+			from io import BytesIO
+			output = BytesIO(response.content)
+			return output
 		else:
 			try:
 				rjson = response.json()
